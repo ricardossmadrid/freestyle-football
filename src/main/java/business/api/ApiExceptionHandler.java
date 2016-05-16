@@ -51,12 +51,4 @@ public class ApiExceptionHandler {
         return apiErrorMessage;
     }
 
-    // @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    // @ExceptionHandler({Exception.class})
-    // @ResponseBody
-    // public ErrorMessage exception(Exception exception) {
-    // ErrorMessage apiErrorMessage = new ErrorMessage(exception);
-    // return apiErrorMessage;
-    // }
-
 }
