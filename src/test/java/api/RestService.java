@@ -8,6 +8,12 @@ import business.wrapper.UserWrapperBuilder;
 public class RestService {
 
     public static final String URL = "http://localhost:8080/freestyle-football.0.0.1-SNAPSHOT" + Uris.SERVLET_MAP;
+    
+    public String loginAdmin() {
+        TokenWrapper token = new RestBuilder<TokenWrapper>(URL).path(Uris.TOKENS).basicAuth("admin", "admin").clazz(TokenWrapper.class)
+                .post().build();
+        return token.getToken();
+    }
 
 	public String registerAndLoginPlayer() {
 		UserWrapper player = new UserWrapperBuilder().build();
@@ -18,7 +24,7 @@ public class RestService {
 	}
 
     public void deleteAll() {
-        
+    	new RestBuilder<TokenWrapper>(RestService.URL).path(Uris.ADMINS).basicAuth(this.loginAdmin(), "").delete().build();
     }
 
 }
