@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Entity
 public class User {
 	
@@ -43,7 +45,7 @@ public class User {
 			byte[] profilePicture) {
 		this.userName = userName;
 		this.email = email;
-		this.password = password;
+		this.password = new BCryptPasswordEncoder().encode(password);
 		this.birthDate = birthDate;
 		this.startingYear = startingYear;
 		this.summary = summary;
