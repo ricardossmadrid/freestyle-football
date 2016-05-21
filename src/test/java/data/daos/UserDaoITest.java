@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
+import data.entities.Token;
 import data.entities.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,5 +36,13 @@ public class UserDaoITest {
         assertEquals(u1, userDao.findByUsernameOrEmail(u1.getUserName()));
         assertEquals(u1, userDao.findByUsernameOrEmail(u1.getEmail()));
         assertNull(userDao.findByUsernameOrEmail("kk"));
+    }
+
+    @Test
+    public void testFindByTokenValue() {
+        User u1 = (User) daosService.getMap().get("u1");
+        Token t1 = (Token) daosService.getMap().get("tu1");
+        assertEquals(u1, userDao.findByTokenValue(t1.getValue()));
+        assertNull(userDao.findByTokenValue("kk"));
     }
 }

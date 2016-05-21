@@ -1,7 +1,9 @@
 package data.daos;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import data.entities.Authorization;
 import data.entities.Role;
+import data.entities.Token;
 import data.entities.User;
 import data.services.DataService;
 
@@ -19,6 +22,9 @@ public class DaosService {
 
     @Autowired
     private UserDao userDao;
+    
+    @Autowired
+    private TokenDao tokenDao;
 
     @Autowired
     private AuthorizationDao authorizationDao;
@@ -40,6 +46,9 @@ public class DaosService {
         for (User user : users) {
             map.put(user.getUserName(), user);
         }
+        for (Token token : this.createTokens(users)) {
+            map.put("t" + token.getUser().getUserName(), token);
+        }
     }
 
     public User[] createUser(int initial, int size, Role role) {
@@ -50,6 +59,17 @@ public class DaosService {
             authorizationDao.save(new Authorization(users[i], role));
         }
         return users;
+    }
+    
+    public List<Token> createTokens(User[] users) {
+        List<Token> tokenList = new ArrayList<>();
+        Token token;
+        for (User user : users) {
+            token = new Token(user);
+            tokenDao.save(token);
+            tokenList.add(token);
+        }
+        return tokenList;
     }
 
     public Map<String, Object> getMap() {

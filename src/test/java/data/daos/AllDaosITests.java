@@ -6,7 +6,9 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    UserDaoITest.class
+	TokenDaoITest.class,
+    UserDaoITest.class,
+    AuthorizationDaoITest.class
 })
 public class AllDaosITests {
 
