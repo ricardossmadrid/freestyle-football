@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     	http.csrf().disable().authorizeRequests()
     		.antMatchers(Uris.SERVLET_MAP + Uris.TOKENS + "/**").authenticated()
+    		.antMatchers(Uris.SERVLET_MAP + Uris.PLAYERS + "/**").authenticated()
 	    	.antMatchers(Uris.SERVLET_MAP + Uris.USERS + "/**").permitAll()
 	    	.and().httpBasic();
     }
