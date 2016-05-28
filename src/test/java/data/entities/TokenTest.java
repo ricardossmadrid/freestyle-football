@@ -13,14 +13,14 @@ public class TokenTest {
 
     @Test
     public void testTokenUser() {
-        User user = new User("u", "u@gmail.com", "p", Calendar.getInstance(), 2012, "", new byte[0]);
+        User user = new User("u", "u@gmail.com", "p", Calendar.getInstance(), 2012, "");
         Token token = new Token(user);
         assertTrue(token.getValue().length() > 20);
     }
     
     @Test
     public void testCreationExpirationTime() {
-    	User user = new User("u", "u@gmail.com", "p", Calendar.getInstance(), 2012, "", new byte[0]);
+    	User user = new User("u", "u@gmail.com", "p", Calendar.getInstance(), 2012, "");
         Token token = new Token(user);
         Calendar auxiliarTime = Calendar.getInstance();
         auxiliarTime.add(Calendar.HOUR, 1);
@@ -32,7 +32,7 @@ public class TokenTest {
     
     @Test
     public void testIsExpired() {
-    	User user = new User("u", "u@gmail.com", "p", Calendar.getInstance(), 2012, "", new byte[0]);
+    	User user = new User("u", "u@gmail.com", "p", Calendar.getInstance(), 2012, "");
         Token token = new Token(user);
         assertTrue(!token.isExpired());
         Calendar auxiliarTime = Calendar.getInstance();

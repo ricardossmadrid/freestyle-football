@@ -1,8 +1,5 @@
 package business.controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -33,29 +30,13 @@ public class UserController {
 	public boolean registration(UserWrapper userWrapper) {
 		if (null == userDao.findByUsernameOrEmail(userWrapper.getUserName()) &&
 			null == userDao.findByUsernameOrEmail(userWrapper.getEmail())) {
-            User user = new User(userWrapper.getUserName(), userWrapper.getEmail(), userWrapper.getPassword(), userWrapper.getBirthDate(), userWrapper.getStartingYear(), userWrapper.getSummary(), changeImageFormat(userWrapper.getProfilePicture()));
+            User user = new User(userWrapper.getUserName(), userWrapper.getEmail(), userWrapper.getPassword(), userWrapper.getBirthDate(), userWrapper.getStartingYear(), userWrapper.getSummary());
             userDao.save(user);
             authorizationDao.save(new Authorization(user, Role.PLAYER));
             return true;
         } else {
             return false;
         }
-	}
-	
-	private byte[] changeImageFormat(File image) {
-		
-		FileInputStream fileInputStream=null;
-	
-		byte[] bImage = new byte[(int) image.length()];
-        
-        try {
-        	fileInputStream = new FileInputStream(image);
-        	fileInputStream.read(bImage);
-        	fileInputStream.close();
-        } catch(Exception e){
-        	e.printStackTrace();
-        }
-        return bImage;
 	}
 
 }

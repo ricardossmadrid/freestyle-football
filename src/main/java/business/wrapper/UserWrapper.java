@@ -1,6 +1,5 @@
 package business.wrapper;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -17,21 +16,18 @@ public class UserWrapper {
 	private int startingYear;
 	
 	private String summary;
-	
-	private File profilePicture;
 
 	public UserWrapper() {
 	}
 
 	public UserWrapper(String userName, String email, String password, Calendar birthDate, int startingYear,
-			String summary, File profilePicture) {
+			String summary) {
 		this.userName = userName;
 		this.email = email;
 		this.password = password;
 		this.birthDate = birthDate;
 		this.startingYear = startingYear;
 		this.summary = summary;
-		this.profilePicture = profilePicture;
 	}
 
 	public String getUserName() {
@@ -82,22 +78,13 @@ public class UserWrapper {
 		this.summary = summary;
 	}
 
-	public File getProfilePicture() {
-		return profilePicture;
-	}
-
-	public void setProfilePicture(File profilePicture) {
-		this.profilePicture = profilePicture;
-	}
-
 	@Override
 	public String toString() {
 		String time = null;
 		if (this.birthDate != null)
 			time = new SimpleDateFormat("dd-MMM-yyyy ").format(this.birthDate.getTime());
 		return "UserWrapper [userName=" + userName + ", email=" + email + ", password=" + password + ", birthDate="
-				+ time + ", startingYear=" + startingYear + ", summary=" + summary + ", profilePicture="
-				+ profilePicture + "]";
+				+ time + ", startingYear=" + startingYear + ", summary=" + summary + "]";
 	}
 
 	

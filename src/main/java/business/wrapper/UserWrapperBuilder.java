@@ -1,6 +1,5 @@
 package business.wrapper;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -10,7 +9,7 @@ public class UserWrapperBuilder {
 
     public UserWrapperBuilder(int suffix) {
         userWrapper = new UserWrapper("u" + suffix, "u" + suffix + "@gmail.com", "u" + suffix, new GregorianCalendar(1990, 01, 14), 
-        		2012, "Blablablabla", new File("/home/ricardoss/Escritorio/Freestyle football/MagicDraw/Pantallazos/batalla.png"));
+        		2012, "Blablablabla");
     }
 
     public UserWrapperBuilder() {

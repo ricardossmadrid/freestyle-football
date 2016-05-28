@@ -1,6 +1,5 @@
 package business.api;
 
-import java.io.File;
 import java.util.Calendar;
 
 import business.controllers.UserController;
@@ -8,7 +7,7 @@ import business.wrapper.UserWrapper;
 
 public class UserControllerMock extends UserController {
 
-    private UserWrapper userWrapper= new UserWrapper("", "", "", Calendar.getInstance(), 0, "", new File("/home/ricardoss/Escritorio/Freestyle football/MagicDraw/Pantallazos/batalla.png"));
+    private UserWrapper userWrapper= new UserWrapper("", "", "", Calendar.getInstance(), 0, "");
 
     @Override
     public boolean registration(UserWrapper userWrapper) {

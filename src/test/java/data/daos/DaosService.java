@@ -54,7 +54,7 @@ public class DaosService {
     public User[] createUser(int initial, int size, Role role) {
         User[] users = new User[size];
         for (int i = 0; i < size; i++) {
-            users[i] = new User("u" + (i + initial), "u" + (i + initial) + "@gmail.com", "p", Calendar.getInstance(), 2012, "", new byte[1]);
+            users[i] = new User("u" + (i + initial), "u" + (i + initial) + "@gmail.com", "p", Calendar.getInstance(), 2012, "");
             userDao.save(users[i]);
             authorizationDao.save(new Authorization(users[i], role));
         }

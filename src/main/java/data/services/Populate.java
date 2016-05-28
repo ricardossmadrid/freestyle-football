@@ -39,7 +39,7 @@ public class Populate {
 	public void createDefaultUser(String key, Role role) {
         User userSaved = userDao.findByUsernameOrEmail(environment.getProperty(key + ".username"));
         if (userSaved == null) {
-            User user = new User(environment.getProperty(key + ".username"), environment.getProperty(key + ".email"), environment.getProperty(key + ".password"), new GregorianCalendar(1979, 07, 22), 2012, "", new byte[0]);
+            User user = new User(environment.getProperty(key + ".username"), environment.getProperty(key + ".email"), environment.getProperty(key + ".password"), new GregorianCalendar(1979, 07, 22), 2012, "");
             userDao.save(user);
             authorizationDao.save(new Authorization(user, role));
         }

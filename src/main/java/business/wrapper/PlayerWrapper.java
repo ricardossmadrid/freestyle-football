@@ -11,19 +11,16 @@ public class PlayerWrapper {
 	private int startingYear;
 	
 	private String summary;
-	
-	private byte[] pictureProfile;
 
 	public PlayerWrapper() {
 		
 	}
 
-	public PlayerWrapper(String userName, Calendar age, int startingYear, String summary, byte[] pictureProfile) {
+	public PlayerWrapper(String userName, Calendar age, int startingYear, String summary) {
 		this.userName = userName;
 		this.age = age;
 		this.startingYear = startingYear;
 		this.summary = summary;
-		this.pictureProfile = pictureProfile;
 	}
 
 	public String getUserName() {
@@ -58,18 +55,10 @@ public class PlayerWrapper {
 		this.summary = summary;
 	}
 
-	public byte[] getPictureProfile() {
-		return pictureProfile;
-	}
-
-	public void setPictureProfile(byte[] pictureProfile) {
-		this.pictureProfile = pictureProfile;
-	}
-
 	@Override
 	public String toString() {
 		return "PlayerWrapper [userName=" + userName + ", age=" + age + ", startingYear=" + startingYear + ", summary="
-				+ summary + ", pictureProfile=" + pictureProfile + "]";
+				+ summary + "]";
 	}
 
 }

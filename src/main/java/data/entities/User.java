@@ -1,16 +1,12 @@
 package data.entities;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -35,21 +31,16 @@ public class User {
     
     private String summary;
     
-    @Lob @Basic(fetch = FetchType.LAZY)
-    private byte[] profilePicture;
-    
     public User() {
     }
 
-	public User(String userName, String email, String password, Calendar birthDate, int startingYear, String summary,
-			byte[] profilePicture) {
+	public User(String userName, String email, String password, Calendar birthDate, int startingYear, String summary) {
 		this.userName = userName;
 		this.email = email;
 		this.password = new BCryptPasswordEncoder().encode(password);
 		this.birthDate = birthDate;
 		this.startingYear = startingYear;
 		this.summary = summary;
-		this.profilePicture = profilePicture;
 	}
 
 	public String getUserName() {
@@ -100,14 +91,6 @@ public class User {
 		this.summary = summary;
 	}
 
-	public byte[] getProfilePicture() {
-		return profilePicture;
-	}
-
-	public void setProfilePicture(byte[] profilePicture) {
-		this.profilePicture = profilePicture;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -136,7 +119,7 @@ public class User {
         String date = new SimpleDateFormat("dd-MMM-yyyy ").format(birthDate.getTime());
 		return "User [id=" + id + ", userName=" + userName + ", email=" + email + ", password=" + password
 				+ ", birthDate=" + date + ", startingYear=" + startingYear + ", summary=" + summary
-				+ ", profilePicture=" + Arrays.toString(profilePicture) + "]";
+				+ "]";
 	}
 	
 	

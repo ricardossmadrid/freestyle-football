@@ -19,7 +19,7 @@ public class PlayerController {
 	
 	public PlayerWrapper showPlayer(String username) {
 		User user = userDao.findByUsernameOrEmail(username);
-		return new PlayerWrapper(user.getUserName(), user.getBirthDate(), user.getStartingYear(), user.getSummary(), user.getProfilePicture());
+		return new PlayerWrapper(user.getUserName(), user.getBirthDate(), user.getStartingYear(), user.getSummary());
 	}
 	
 }

@@ -27,17 +27,16 @@ public class UserResource {
         validateField(userWrapper.getUserName(), "userName");
         validateField(userWrapper.getEmail(), "email");
         validateField(userWrapper.getPassword(), "password");
-        validateField(userWrapper.getBirthDate().toString(), "birthDate");
-        validateField(Integer.toString(userWrapper.getStartingYear()).toString(), "startingYear");
+        validateField(userWrapper.getBirthDate(), "birthDate");
+        validateField(Integer.toString(userWrapper.getStartingYear()), "startingYear");
         validateField(userWrapper.getSummary(), "summary");
-        validateField(userWrapper.getProfilePicture().toString(), "pictureProfile");
         if (!this.userController.registration(userWrapper)) {
             throw new AlreadyExistUserFieldException();
         }
-	}
+	}	
 	
-	private void validateField(String field, String msg) throws InvalidUserFieldException {
-        if (field == null || field.isEmpty()) {
+	private void validateField(Object field, String msg) throws InvalidUserFieldException {
+        if (field == null || field.toString().isEmpty()) {
             throw new InvalidUserFieldException(msg);
         }
     }
