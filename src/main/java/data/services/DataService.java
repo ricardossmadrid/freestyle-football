@@ -29,6 +29,7 @@ public class DataService {
         tokenDao.deleteAll();
         userDao.deleteAll();
         populate.createDefaultUser("admin", Role.ADMIN);
+        populate.createDefaultUser("player", Role.PLAYER);
     }
 
 }

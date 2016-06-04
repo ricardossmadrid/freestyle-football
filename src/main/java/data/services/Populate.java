@@ -32,8 +32,9 @@ public class Populate {
     private AuthorizationDao authorizationDao;
 
     @PostConstruct
-    public void readAdmin() {
+    public void readAdminAndPlayer() {
         createDefaultUser("admin", Role.ADMIN);
+        createDefaultUser("player", Role.PLAYER);
     }
 
 	public void createDefaultUser(String key, Role role) {

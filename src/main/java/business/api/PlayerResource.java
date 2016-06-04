@@ -1,8 +1,8 @@
 package business.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,10 +22,8 @@ public class PlayerResource {
     }
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public PlayerWrapper showPlayer() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		return playerController.showPlayer(name);
+	public PlayerWrapper showPlayer(@AuthenticationPrincipal User activeUser) {
+		return playerController.showPlayer(activeUser.getUsername());
 	}
 
 }

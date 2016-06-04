@@ -11,8 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import business.api.Uris;
+import data.entities.Role;
 
 
 @Configuration
@@ -22,6 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsService userDetailsService;
+    
+    @Autowired
+    CorsFilter corsFilter;
 
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -31,10 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.csrf().disable().authorizeRequests()
+    		.antMatchers(Uris.SERVLET_MAP + Uris.USERS + "/**").permitAll()
     		.antMatchers(Uris.SERVLET_MAP + Uris.TOKENS + "/**").authenticated()
-    		.antMatchers(Uris.SERVLET_MAP + Uris.PLAYERS + "/**").authenticated()
-	    	.antMatchers(Uris.SERVLET_MAP + Uris.USERS + "/**").permitAll()
-	    	.and().httpBasic();
+    		.antMatchers(Uris.SERVLET_MAP + Uris.PLAYERS + "/**").hasRole(Role.PLAYER.name())
+	    	.and().addFilterBefore(corsFilter, BasicAuthenticationFilter.class)
+	    	.httpBasic();
     }
 
     @Bean
