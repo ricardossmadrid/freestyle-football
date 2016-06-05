@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     		.antMatchers(Uris.SERVLET_MAP + Uris.USERS + "/**").permitAll()
     		.antMatchers(Uris.SERVLET_MAP + Uris.TOKENS + "/**").authenticated()
     		.antMatchers(Uris.SERVLET_MAP + Uris.PLAYERS + "/**").hasRole(Role.PLAYER.name())
+    		.antMatchers(Uris.SERVLET_MAP + Uris.VIDEOS + "/**").hasRole(Role.PLAYER.name())
 	    	.and().addFilterBefore(corsFilter, BasicAuthenticationFilter.class)
 	    	.httpBasic();
     }

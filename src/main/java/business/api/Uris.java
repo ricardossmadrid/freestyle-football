@@ -14,4 +14,6 @@ public class Uris {
 
     public static final String PLAYERS = "/players";
 
+    public static final String VIDEOS = "/videos";
+
 }
