@@ -15,6 +15,7 @@ import data.entities.Authorization;
 import data.entities.Role;
 import data.entities.Token;
 import data.entities.User;
+import data.entities.Video;
 import data.services.DataService;
 
 @Service
@@ -25,6 +26,9 @@ public class DaosService {
     
     @Autowired
     private TokenDao tokenDao;
+    
+    @Autowired
+    private VideoDao videoDao;
 
     @Autowired
     private AuthorizationDao authorizationDao;
@@ -70,6 +74,10 @@ public class DaosService {
             tokenList.add(token);
         }
         return tokenList;
+    }
+    
+    public void saveVideo(String userName, String videoSuffix) {
+    	videoDao.save(new Video((User) getMap().get(userName), "title" + videoSuffix, "place" + videoSuffix, "url" + videoSuffix));
     }
 
     public Map<String, Object> getMap() {

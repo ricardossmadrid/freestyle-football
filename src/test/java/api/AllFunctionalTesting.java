@@ -7,7 +7,9 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
 	UserResourceFunctionalTesting.class, 
-    TokenResourceFunctionalTesting.class
+    TokenResourceFunctionalTesting.class,
+    PlayerResourceFunctionalTesting.class,
+    VideoResourceFunctionalTesting.class
 })
 public class AllFunctionalTesting {
 

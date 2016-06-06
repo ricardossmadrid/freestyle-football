@@ -7,6 +7,7 @@ import business.api.exceptions.InvalidFieldException;
 import data.daos.AuthorizationDao;
 import data.daos.TokenDao;
 import data.daos.UserDao;
+import data.daos.VideoDao;
 import data.entities.Role;
 
 @Service
@@ -24,10 +25,14 @@ public class DataService {
     @Autowired
     private UserDao userDao;
     
+    @Autowired
+    private VideoDao videoDao;
+    
 
     public void deleteAllExceptAdmin(){
         authorizationDao.deleteAll();
         tokenDao.deleteAll();
+        videoDao.deleteAll();
         userDao.deleteAll();
         populate.createDefaultUser("admin", Role.ADMIN);
         populate.createDefaultUser("player", Role.PLAYER);

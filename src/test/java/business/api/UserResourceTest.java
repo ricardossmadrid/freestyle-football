@@ -11,17 +11,22 @@ import business.api.exceptions.InvalidFieldException;
 import business.controllers.UserController;
 import business.wrapper.UserWrapper;
 import business.wrapper.UserWrapperBuilder;
+import data.services.DataService;
 
 public class UserResourceTest {
 
     private UserResource userResource;
 
     private UserController userController;
+    
+    private DataService dataService;
 
     @Before
     public void before() {
+    	dataService = new DataService();
         userController = new UserControllerMock();
         userResource = new UserResource();
+        userResource.setDataService(dataService);
         userResource.setUserController(userController);
     }
 
