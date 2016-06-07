@@ -2,11 +2,11 @@ package business.wrapper;
 
 public class VideoWrapper {
 	
-	private String title;
+	protected String title;
 	
-	private String place;
+	protected String place;
 	
-	private String youtubeUrl;
+	protected String youtubeUrl;
 
 	public VideoWrapper() {
 	}

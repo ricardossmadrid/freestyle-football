@@ -27,8 +27,8 @@ public class VideoDaoITest {
 		daosService.saveVideo("u1", "1");
 		daosService.saveVideo("u1", "2");
 		daosService.saveVideo("u2", "3");
-		assertEquals(2, videoDao.findByPlayer((User) daosService.getMap().get("u1")).size());
-		assertEquals(1, videoDao.findByPlayer((User) daosService.getMap().get("u2")).size());
+		assertEquals(2, videoDao.findByPlayerOrderBySendTimeDesc((User) daosService.getMap().get("u1")).size());
+		assertEquals(1, videoDao.findByPlayerOrderBySendTimeDesc((User) daosService.getMap().get("u2")).size());
 	}
 
 }

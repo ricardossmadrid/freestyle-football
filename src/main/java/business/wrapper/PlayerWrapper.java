@@ -13,13 +13,13 @@ public class PlayerWrapper {
 	
 	private String summary;
 	
-	private List<VideoWrapper> videos;
+	private List<VideoOutputWrapper> videos;
 
 	public PlayerWrapper() {
 		
 	}
 
-	public PlayerWrapper(String userName, Calendar age, int startingYear, String summary, List<VideoWrapper> videos) {
+	public PlayerWrapper(String userName, Calendar age, int startingYear, String summary, List<VideoOutputWrapper> videos) {
 		this.userName = userName;
 		this.age = age;
 		this.startingYear = startingYear;
@@ -59,11 +59,11 @@ public class PlayerWrapper {
 		this.summary = summary;
 	}
 
-	public List<VideoWrapper> getVideos() {
+	public List<VideoOutputWrapper> getVideos() {
 		return videos;
 	}
 
-	public void setVideos(List<VideoWrapper> videos) {
+	public void setVideos(List<VideoOutputWrapper> videos) {
 		this.videos = videos;
 	}
 

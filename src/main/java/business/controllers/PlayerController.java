@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import business.wrapper.PlayerWrapper;
-import business.wrapper.VideoWrapper;
+import business.wrapper.VideoOutputWrapper;
 import data.daos.UserDao;
 import data.daos.VideoDao;
 import data.entities.User;
@@ -32,13 +32,13 @@ public class PlayerController {
 	
 	public PlayerWrapper showPlayer(String username) {
 		User user = userDao.findByUsernameOrEmail(username);
-		return new PlayerWrapper(user.getUserName(), user.getBirthDate(), user.getStartingYear(), user.getSummary(), getVideoWrappers(videoDao.findByPlayer(user)));
+		return new PlayerWrapper(user.getUserName(), user.getBirthDate(), user.getStartingYear(), user.getSummary(), getVideoWrappers(videoDao.findByPlayerOrderBySendTimeDesc(user)));
 	}
 
-	private List<VideoWrapper> getVideoWrappers(List<Video> videosEntity) {
-		List<VideoWrapper> videosWrapper = new ArrayList<VideoWrapper>();
+	private List<VideoOutputWrapper> getVideoWrappers(List<Video> videosEntity) {
+		List<VideoOutputWrapper> videosWrapper = new ArrayList<VideoOutputWrapper>();
 		for (int i = 0; i < videosEntity.size(); i++) {
-			videosWrapper.add(new VideoWrapper(videosEntity.get(i).getTitle(), videosEntity.get(i).getPlace(), videosEntity.get(i).getYoutubeUrl()));
+			videosWrapper.add(new VideoOutputWrapper(videosEntity.get(i).getTitle(), videosEntity.get(i).getPlace(), videosEntity.get(i).getYoutubeUrl(), videosEntity.get(i).getSendTime()));
 		}
 		return videosWrapper;
 	}

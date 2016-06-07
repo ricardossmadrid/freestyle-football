@@ -1,5 +1,7 @@
 package data.entities;
 
+import java.util.Calendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,12 +24,15 @@ public class Video {
 	private String place;
 	
 	private String youtubeUrl;
+	
+	private Calendar sendTime;
 
 	public Video() {
 		
 	}
 
 	public Video(User player, String title, String place, String youtubeUrl) {
+		this.sendTime = Calendar.getInstance();
 		this.player = player;
 		this.title = title;
 		this.place = place;
@@ -70,6 +75,14 @@ public class Video {
 		this.youtubeUrl = youtubeUrl;
 	}
 
+	public Calendar getSendTime() {
+		return sendTime;
+	}
+
+	public void setSendTime(Calendar sendTime) {
+		this.sendTime = sendTime;
+	}
+
 	@Override
     public int hashCode() {
         return id;
@@ -92,7 +105,8 @@ public class Video {
 	@Override
 	public String toString() {
 		return "Video [id=" + id + ", player=" + player + ", title=" + title + ", place=" + place + ", youtubeUrl="
-				+ youtubeUrl + "]";
+				+ youtubeUrl + ", sendTime=" + sendTime + "]";
 	}
+
 
 }

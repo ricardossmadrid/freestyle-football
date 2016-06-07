@@ -9,6 +9,6 @@ import data.entities.Video;
 
 public interface VideoDao extends JpaRepository<Video, Integer> {
 	
-	List<Video> findByPlayer(User player);
+	List<Video> findByPlayerOrderBySendTimeDesc(User player);
 
 }
