@@ -21,6 +21,8 @@ import data.entities.User;
 @Transactional
 @PropertySource(ResourceNames.PROPERTIES)
 public class Populate {
+	
+	public static final int NUM_GENERIC_PLAYERS = 6;
 
     @Autowired
     private Environment environment;
@@ -32,9 +34,12 @@ public class Populate {
     private AuthorizationDao authorizationDao;
 
     @PostConstruct
-    public void readAdminAndPlayer() {
+    public void readAdminAndPlayers() {
         createDefaultUser("admin", Role.ADMIN);
         createDefaultUser("player", Role.PLAYER);
+        for (int i = 0; i < NUM_GENERIC_PLAYERS; i++) {
+        	createDefaultUser("user" + i, Role.PLAYER);
+        }
     }
 
 	public void createDefaultUser(String key, Role role) {
