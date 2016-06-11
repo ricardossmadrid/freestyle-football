@@ -41,7 +41,7 @@ public class DaosService {
     @PostConstruct
     public void populate() {
     	map = new HashMap<>();
-        User[] players = this.createUser(0, 4, Role.PLAYER);
+        User[] players = this.createUser(0, 6, Role.PLAYER);
         putOnMapWithToken(players);
     }
 

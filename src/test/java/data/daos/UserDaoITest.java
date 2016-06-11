@@ -45,4 +45,11 @@ public class UserDaoITest {
         assertEquals(u1, userDao.findByTokenValue(t1.getValue()));
         assertNull(userDao.findByTokenValue("kk"));
     }
+    
+    @Test
+    public void testFindByUserNameIgnoreCaseContaining() {
+    	assertEquals(6, userDao.findByUserNameIgnoreCaseContaining("u").size());
+    	assertEquals(1, userDao.findByUserNameIgnoreCaseContaining("1").size());
+    	assertEquals(0, userDao.findByUserNameIgnoreCaseContaining("z").size());
+    }
 }

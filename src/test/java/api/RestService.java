@@ -15,6 +15,13 @@ public class RestService {
                 .post().build();
         return token.getToken();
     }
+    
+    public void registerSomePLayers(int size) {
+    	for (int i = 1; i <= size; i++) {
+    		UserWrapper player = new UserWrapperBuilder(i).build();
+            new RestBuilder<Object>(URL).path(Uris.USERS).body(player).post().build();
+    	}
+    }
 
 	public String registerAndLoginPlayer() {
 		UserWrapper player = new UserWrapperBuilder().build();

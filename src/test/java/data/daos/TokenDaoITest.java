@@ -32,7 +32,7 @@ public class TokenDaoITest {
     @Test
     public void testFindByUser() {
         Token token = (Token) daosService.getMap().get("tu1");
-        User user = (User) daosService.getMap().get("u4");
+        User user = (User) daosService.getMap().get("u123");
         List<Token> tokens = tokenDao.findByUser(token.getUser());
         boolean found = false;
         int i = 0;
