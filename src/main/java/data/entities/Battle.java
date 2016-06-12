@@ -1,5 +1,6 @@
 package data.entities;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -26,11 +27,14 @@ public class Battle {
 	
 	private String youtubeUrlChallenged;
 	
+	private Calendar battleChallengeTime;
+	
 	public Battle() {
 		
 	}
 
 	public Battle(String title, String description, List<User> players, String youtubeUrlChallenger) {
+		this.battleChallengeTime = Calendar.getInstance();
 		this.title = title;
 		this.description = description;
 		this.players = players;
@@ -82,6 +86,14 @@ public class Battle {
 		this.youtubeUrlChallenged = youtubeUrlChallenged;
 	}
 
+	public Calendar getBattleChallengeTime() {
+		return battleChallengeTime;
+	}
+
+	public void setBattleChallengeTime(Calendar battleChallengeTime) {
+		this.battleChallengeTime = battleChallengeTime;
+	}
+
 	@Override
     public int hashCode() {
         return id;
@@ -105,8 +117,7 @@ public class Battle {
 	public String toString() {
 		return "Battle [id=" + id + ", title=" + title + ", description=" + description + ", players=" + players
 				+ ", youtubeUrlChallenger=" + youtubeUrlChallenger + ", youtubeUrlChallenged=" + youtubeUrlChallenged
-				+ "]";
+				+ ", battleChallengeTime=" + battleChallengeTime + "]";
 	}
-
 	
 }

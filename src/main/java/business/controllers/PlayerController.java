@@ -6,11 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import business.wrapper.BattleWrapper;
 import business.wrapper.PlayerWrapper;
 import business.wrapper.VideoOutputWrapper;
 import data.daos.AuthorizationDao;
+import data.daos.BattleDao;
 import data.daos.UserDao;
 import data.daos.VideoDao;
+import data.entities.Battle;
 import data.entities.Role;
 import data.entities.User;
 import data.entities.Video;
@@ -26,6 +29,8 @@ public class PlayerController {
 	
 	private VideoDao videoDao;
 	
+	private BattleDao battleDao;
+	
 	@Autowired
 	public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
@@ -37,13 +42,18 @@ public class PlayerController {
 	}
 	
 	@Autowired
+	public void setBattleDao(BattleDao battleDao) {
+		this.battleDao = battleDao;
+	}
+	
+	@Autowired
 	public void setAuthorizationDao(AuthorizationDao authorizationDao) {
 		this.authorizationDao = authorizationDao;
 	}
 	
 	public PlayerWrapper showPlayer(String username, boolean ownPlayer) {
 		User user = userDao.findByUsernameOrEmail(username);
-		return new PlayerWrapper(user.getUserName(), user.getBirthDate(), user.getStartingYear(), user.getSummary(), getVideoWrappers(videoDao.findByPlayerOrderBySendTimeDesc(user)), ownPlayer);
+		return new PlayerWrapper(user.getUserName(), user.getBirthDate(), user.getStartingYear(), user.getSummary(), getVideoWrappers(videoDao.findByPlayerOrderBySendTimeDesc(user)), getBattleWrappers(battleDao.findByPlayersOrderByBattleChallengeTimeDesc(user)), ownPlayer);
 	}
 
 	private List<VideoOutputWrapper> getVideoWrappers(List<Video> videosEntity) {
@@ -52,6 +62,14 @@ public class PlayerController {
 			videosWrapper.add(new VideoOutputWrapper(videosEntity.get(i).getTitle(), videosEntity.get(i).getPlace(), videosEntity.get(i).getYoutubeUrl(), videosEntity.get(i).getSendTime()));
 		}
 		return videosWrapper;
+	}
+	
+	private List<BattleWrapper> getBattleWrappers(List<Battle> battlesEntity) {
+		List<BattleWrapper> battleWrapper = new ArrayList<BattleWrapper>();
+		for (int i = 0; i < battlesEntity.size(); i++) {
+			battleWrapper.add(new BattleWrapper(battlesEntity.get(i).getId(), battlesEntity.get(i).getTitle(), battlesEntity.get(i).getDescription(), battlesEntity.get(i).getPlayers().get(0).getUserName(), battlesEntity.get(i).getPlayers().get(1).getUserName(), battlesEntity.get(i).getYoutubeUrlChallenger(), battlesEntity.get(i).getYoutubeUrlChallenged(), battlesEntity.get(i).getBattleChallengeTime()));
+		}
+		return battleWrapper;
 	}
 
 	public List<String> getSuggestionsNames(String ownUserName, String userName) {

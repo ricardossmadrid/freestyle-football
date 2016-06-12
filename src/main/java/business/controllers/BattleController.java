@@ -30,14 +30,14 @@ public class BattleController {
 		this.userDao = userDao;
 	}
 
-	public void battleChallenge(String userNameChallenger, BattleChallengeWrapper videoChallengeWrapper) throws NotFoundUserNameException {
+	public void battleChallenge(String userNameChallenger, BattleChallengeWrapper battleChallengeWrapper) throws NotFoundUserNameException {
 		User userChallenger = userDao.findByUsernameOrEmail(userNameChallenger),
-				userChallenged = userDao.findByUsernameOrEmail(videoChallengeWrapper.getUserChallenged());
-		if (userChallenged != null && userChallenger != null) {
+				userChallenged = userDao.findByUsernameOrEmail(battleChallengeWrapper.getUserChallenged());
+		if (userChallenged != null && userChallenger != null && !userNameChallenger.equals(battleChallengeWrapper.getUserChallenged())) {
 			List<User> players = new ArrayList<User>();
 			players.add(userChallenger);
 			players.add(userChallenged);
-			Battle battle = new Battle(videoChallengeWrapper.getTitle(), videoChallengeWrapper.getDescription(), players, videoChallengeWrapper.getYoutubeUrl());
+			Battle battle = new Battle(battleChallengeWrapper.getTitle(), battleChallengeWrapper.getDescription(), players, battleChallengeWrapper.getYoutubeUrl());
 			battleDao.save(battle);
 		} else {
 			throw new NotFoundUserNameException("UserName not found");

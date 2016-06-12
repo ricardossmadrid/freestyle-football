@@ -15,18 +15,21 @@ public class PlayerWrapper {
 	
 	private List<VideoOutputWrapper> videos;
 	
+	private List<BattleWrapper> battles;
+	
 	private boolean ownPlayer;
 
 	public PlayerWrapper() {
 		
 	}
 
-	public PlayerWrapper(String userName, Calendar age, int startingYear, String summary, List<VideoOutputWrapper> videos, boolean ownPlayer) {
+	public PlayerWrapper(String userName, Calendar age, int startingYear, String summary, List<VideoOutputWrapper> videos, List<BattleWrapper> battles, boolean ownPlayer) {
 		this.userName = userName;
 		this.age = age;
 		this.startingYear = startingYear;
 		this.summary = summary;
 		this.videos = videos;
+		this.battles = battles;
 		this.ownPlayer = ownPlayer;
 	}
 
@@ -70,6 +73,14 @@ public class PlayerWrapper {
 		this.videos = videos;
 	}
 
+	public List<BattleWrapper> getBattles() {
+		return battles;
+	}
+
+	public void setBattles(List<BattleWrapper> battles) {
+		this.battles = battles;
+	}
+
 	public boolean isOwnPlayer() {
 		return ownPlayer;
 	}
@@ -81,9 +92,7 @@ public class PlayerWrapper {
 	@Override
 	public String toString() {
 		return "PlayerWrapper [userName=" + userName + ", age=" + age + ", startingYear=" + startingYear + ", summary="
-				+ summary + ", videos=" + videos + ", ownPlayer=" + ownPlayer + "]";
+				+ summary + ", videos=" + videos + ", battles=" + battles + ", ownPlayer=" + ownPlayer + "]";
 	}
-
-
 
 }
