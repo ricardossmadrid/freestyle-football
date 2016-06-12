@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import data.entities.Authorization;
+import data.entities.Battle;
 import data.entities.Role;
 import data.entities.Token;
 import data.entities.User;
@@ -29,6 +30,9 @@ public class DaosService {
     
     @Autowired
     private VideoDao videoDao;
+    
+    @Autowired
+    private BattleDao battleDao;
 
     @Autowired
     private AuthorizationDao authorizationDao;
@@ -78,6 +82,13 @@ public class DaosService {
     
     public void saveVideo(String userName, String videoSuffix) {
     	videoDao.save(new Video((User) getMap().get(userName), "title" + videoSuffix, "place" + videoSuffix, "url" + videoSuffix));
+    }
+    
+    public void battleChallenge(String userNameChallenger, String userNameChallenged, String battleSuffix) {
+    	List<User> players = new ArrayList<User>();
+    	players.add((User) getMap().get(userNameChallenger));
+    	players.add((User) getMap().get(userNameChallenged));
+    	battleDao.save(new Battle("title" + battleSuffix, "description" + battleSuffix, players, "youtubeUrlChallenger" + battleSuffix));
     }
 
     public Map<String, Object> getMap() {

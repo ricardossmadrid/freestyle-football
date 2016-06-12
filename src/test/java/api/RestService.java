@@ -1,6 +1,11 @@
 package api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import business.api.Uris;
+import business.wrapper.BattleChallengeWrapper;
+import business.wrapper.BattleWrapper;
 import business.wrapper.TokenWrapper;
 import business.wrapper.UserWrapper;
 import business.wrapper.UserWrapperBuilder;
@@ -22,6 +27,14 @@ public class RestService {
             new RestBuilder<Object>(URL).path(Uris.USERS).body(player).post().build();
     	}
     }
+    
+    public List<String> loginSomePlayers(int size) {
+    	List<String> tokens = new ArrayList<String>();
+    	for (int i = 1; i <= size; i++) {
+    		tokens.add(loginUser("u" + i, "u" + i));
+    	}
+    	return tokens;
+    }
 
 	public String registerAndLoginPlayer() {
 		UserWrapper player = new UserWrapperBuilder().build();
@@ -33,6 +46,14 @@ public class RestService {
 	
 	public void sendVideo(String tokenValue, VideoWrapper videoWrapper) {
 		new RestBuilder<Object>(URL).path(Uris.VIDEOS).body(videoWrapper).basicAuth(tokenValue, "").post().build();
+	}
+
+	public void createSomeBattleChallenges(int size, String tokenValue, String playerChallenged, String suffix) {
+		BattleChallengeWrapper battleChallengeWrapper;
+		for (int i = 0; i < size; i++) {
+			battleChallengeWrapper = new BattleChallengeWrapper("title" + suffix + i, "description" + suffix + i, "youtubeUrl" + suffix + i, playerChallenged);
+			new RestBuilder<BattleWrapper>(RestService.URL).path(Uris.BATTLES + Uris.CHALLENGE).body(battleChallengeWrapper).basicAuth(tokenValue, "").clazz(BattleWrapper.class).post().build();
+		}
 	}
 
     public void deleteAll() {

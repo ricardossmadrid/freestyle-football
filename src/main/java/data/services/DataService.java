@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import business.api.exceptions.InvalidFieldException;
 import data.daos.AuthorizationDao;
+import data.daos.BattleDao;
 import data.daos.TokenDao;
 import data.daos.UserDao;
 import data.daos.VideoDao;
@@ -28,11 +29,15 @@ public class DataService {
     @Autowired
     private VideoDao videoDao;
     
+    @Autowired
+    private BattleDao battleDao;
+    
 
     public void deleteAllExceptAdmin(){
         authorizationDao.deleteAll();
         tokenDao.deleteAll();
         videoDao.deleteAll();
+        battleDao.deleteAll();
         userDao.deleteAll();
         populate.createDefaultUser("admin", Role.ADMIN);
         populate.createDefaultUser("player", Role.PLAYER);
