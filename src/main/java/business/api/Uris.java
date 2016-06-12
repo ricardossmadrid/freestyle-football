@@ -17,5 +17,9 @@ public class Uris {
     public static final String VIDEOS = "/videos";
     
     public static final String SUGGESTIONS = "/suggestions";
+    
+    public static final String BATTLES = "/battles";
+    
+    public static final String CHALLENGE = "/challenge";
 
 }
