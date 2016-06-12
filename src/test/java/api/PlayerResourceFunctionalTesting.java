@@ -30,7 +30,7 @@ public class PlayerResourceFunctionalTesting {
 	
 	@Test
 	public void showUserTest() {
-		PlayerWrapper player = new RestBuilder<PlayerWrapper>(RestService.URL).path(Uris.PLAYERS).basicAuth(token, "").clazz(PlayerWrapper.class).get().build();
+		PlayerWrapper player = new RestBuilder<PlayerWrapper>(RestService.URL).path(Uris.PLAYERS).param("playerName", "u0").basicAuth(token, "").clazz(PlayerWrapper.class).get().build();
 		assertEquals(player.getUserName(), "u0");
 	}
 	
@@ -49,7 +49,7 @@ public class PlayerResourceFunctionalTesting {
 		restService.registerSomePLayers(6);
 		List<String> suggestedUserNames = Arrays.asList(new RestBuilder<String[]>(RestService.URL).path(Uris.PLAYERS + Uris.SUGGESTIONS).param("playerName", "u").basicAuth(token, "").clazz(String[].class).get().build());
 		assertTrue(suggestedUserNames.size() <= PlayerController.MAX_SUGGESTIONS);
-		suggestedUserNames = Arrays.asList(new RestBuilder<String[]>(RestService.URL).path(Uris.PLAYERS + Uris.SUGGESTIONS).param("playerName", "0").basicAuth(token, "").clazz(String[].class).get().build());
+		suggestedUserNames = Arrays.asList(new RestBuilder<String[]>(RestService.URL).path(Uris.PLAYERS + Uris.SUGGESTIONS).param("playerName", "Z").basicAuth(token, "").clazz(String[].class).get().build());
 		assertEquals(suggestedUserNames.size(), 0);
 	}
 	

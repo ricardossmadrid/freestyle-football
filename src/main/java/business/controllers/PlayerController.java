@@ -41,9 +41,9 @@ public class PlayerController {
 		this.authorizationDao = authorizationDao;
 	}
 	
-	public PlayerWrapper showPlayer(String username) {
+	public PlayerWrapper showPlayer(String username, boolean ownPlayer) {
 		User user = userDao.findByUsernameOrEmail(username);
-		return new PlayerWrapper(user.getUserName(), user.getBirthDate(), user.getStartingYear(), user.getSummary(), getVideoWrappers(videoDao.findByPlayerOrderBySendTimeDesc(user)));
+		return new PlayerWrapper(user.getUserName(), user.getBirthDate(), user.getStartingYear(), user.getSummary(), getVideoWrappers(videoDao.findByPlayerOrderBySendTimeDesc(user)), ownPlayer);
 	}
 
 	private List<VideoOutputWrapper> getVideoWrappers(List<Video> videosEntity) {
@@ -74,6 +74,10 @@ public class PlayerController {
 			i++;
 		}
 		return i < roles.size();
+	}
+
+	public boolean exist(String playerName) {
+		return userDao.findByUsernameOrEmail(playerName) != null;
 	}
 	
 }

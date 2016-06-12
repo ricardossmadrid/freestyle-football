@@ -14,17 +14,20 @@ public class PlayerWrapper {
 	private String summary;
 	
 	private List<VideoOutputWrapper> videos;
+	
+	private boolean ownPlayer;
 
 	public PlayerWrapper() {
 		
 	}
 
-	public PlayerWrapper(String userName, Calendar age, int startingYear, String summary, List<VideoOutputWrapper> videos) {
+	public PlayerWrapper(String userName, Calendar age, int startingYear, String summary, List<VideoOutputWrapper> videos, boolean ownPlayer) {
 		this.userName = userName;
 		this.age = age;
 		this.startingYear = startingYear;
 		this.summary = summary;
 		this.videos = videos;
+		this.ownPlayer = ownPlayer;
 	}
 
 	public String getUserName() {
@@ -67,11 +70,20 @@ public class PlayerWrapper {
 		this.videos = videos;
 	}
 
+	public boolean isOwnPlayer() {
+		return ownPlayer;
+	}
+
+	public void setOwnPlayer(boolean ownPlayer) {
+		this.ownPlayer = ownPlayer;
+	}
+
 	@Override
 	public String toString() {
 		return "PlayerWrapper [userName=" + userName + ", age=" + age + ", startingYear=" + startingYear + ", summary="
-				+ summary + ", videos=" + videos + "]";
+				+ summary + ", videos=" + videos + ", ownPlayer=" + ownPlayer + "]";
 	}
+
 
 
 }

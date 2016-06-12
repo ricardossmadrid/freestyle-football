@@ -48,8 +48,8 @@ public class UserDaoITest {
     
     @Test
     public void testFindByUserNameIgnoreCaseContaining() {
-    	assertEquals(6, userDao.findByUserNameIgnoreCaseContaining("u").size());
-    	assertEquals(1, userDao.findByUserNameIgnoreCaseContaining("1").size());
+    	assertEquals(12, userDao.findByUserNameIgnoreCaseContaining("u").size());
+    	assertEquals(2, userDao.findByUserNameIgnoreCaseContaining("1").size());
     	assertEquals(0, userDao.findByUserNameIgnoreCaseContaining("z").size());
     }
 }
