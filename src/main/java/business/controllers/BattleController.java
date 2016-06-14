@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import business.api.exceptions.InvalidBattleResponseException;
 import business.api.exceptions.NotFoundUserNameException;
 import business.wrapper.BattleChallengeWrapper;
+import business.wrapper.BattleResponseWrapper;
 import data.daos.BattleDao;
 import data.daos.UserDao;
 import data.entities.Battle;
@@ -43,6 +45,16 @@ public class BattleController {
 			throw new NotFoundUserNameException("UserName not found");
 		}
 		
+	}
+
+	public void battleResponse(String username, BattleResponseWrapper battleResponseWrapper) throws InvalidBattleResponseException {
+		Battle battle = battleDao.findOne(battleResponseWrapper.getId());
+		if (battle != null && battle.getPlayers().get(1).getUserName().equals(username)) {
+			battle.setYoutubeUrlChallenged(battleResponseWrapper.getYoutubeUrlChallenged());
+			battleDao.save(battle);
+		} else {
+			throw new InvalidBattleResponseException();
+		}
 	}
 
 }

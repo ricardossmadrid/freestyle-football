@@ -22,4 +22,6 @@ public class Uris {
     
     public static final String CHALLENGE = "/challenge";
 
+	public static final String RESPONSE = "/response";
+
 }
