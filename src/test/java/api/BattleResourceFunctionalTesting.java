@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import business.api.Uris;
 import business.wrapper.BattleResponseWrapper;
+import business.wrapper.BattleVoteWrapper;
 import business.wrapper.PlayerWrapper;
 
 public class BattleResourceFunctionalTesting {
@@ -55,6 +56,31 @@ public class BattleResourceFunctionalTesting {
 		playerChallenged = new RestBuilder<PlayerWrapper>(RestService.URL).path(Uris.PLAYERS).param("playerName", "").basicAuth(tokens.get(1), "").clazz(PlayerWrapper.class).get().build();
 		
 		assertNotNull(playerChallenged.getBattles().get(0).getYoutubeUrlChallenged());
+	}
+	
+	@Test
+	public void testBattleVote() {
+		restService.registerSomePLayers(3);
+		List<String> tokens = restService.loginSomePlayers(3);
+		
+		restService.createSomeBattleChallenges(1, tokens.get(0), "u2", "1");
+		
+		PlayerWrapper playerChallenged = new RestBuilder<PlayerWrapper>(RestService.URL).path(Uris.PLAYERS).param("playerName", "").basicAuth(tokens.get(1), "").clazz(PlayerWrapper.class).get().build();
+		
+		assertEquals(playerChallenged.getWins(), 0);
+		assertEquals(playerChallenged.getNumberOfBattles(), 1);
+		
+		new RestBuilder<>(RestService.URL).path(Uris.BATTLES + Uris.RESPONSE).body(new BattleResponseWrapper(playerChallenged.getBattles().get(0).getId(), "youtubeUrl2"))
+				.basicAuth(tokens.get(1), "").post().build();
+		
+		new RestBuilder<>(RestService.URL).path(Uris.BATTLES + Uris.VOTE).body(new BattleVoteWrapper(playerChallenged.getBattles().get(0).getId(), "u2"))
+				.basicAuth(tokens.get(2), "").post().build();
+		
+		playerChallenged = new RestBuilder<PlayerWrapper>(RestService.URL).path(Uris.PLAYERS).param("playerName", "").basicAuth(tokens.get(1), "").clazz(PlayerWrapper.class).get().build();
+		
+		assertEquals(playerChallenged.getWins(), 1);
+		assertEquals(playerChallenged.getNumberOfBattles(), 1);
+		
 	}
 	
 	@After
