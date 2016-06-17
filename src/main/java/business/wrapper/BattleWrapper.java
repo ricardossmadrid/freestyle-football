@@ -18,6 +18,10 @@ public class BattleWrapper {
 	
 	private String youtubeUrlChallenged;
 	
+	private int votesVideoChallenger;
+	
+	private int votesVideoChallenged;
+	
 	private Calendar battleChallengeTime;
 
 	public BattleWrapper() {
@@ -25,7 +29,7 @@ public class BattleWrapper {
 	}
 
 	public BattleWrapper(int id, String titulo, String description, String userChallenger, String userChallenged,
-			String youtubeUrlChallenger, String youtubeUrlChallenged, Calendar battleChallengeTime) {
+			String youtubeUrlChallenger, String youtubeUrlChallenged, int votesVideoChallenger, int votesVideoChallenged, Calendar battleChallengeTime) {
 		this.id = id;
 		this.titulo = titulo;
 		this.description = description;
@@ -34,6 +38,8 @@ public class BattleWrapper {
 		this.youtubeUrlChallenger = youtubeUrlChallenger;
 		this.youtubeUrlChallenged = youtubeUrlChallenged;
 		this.battleChallengeTime = battleChallengeTime;
+		this.votesVideoChallenger = votesVideoChallenger;
+		this.votesVideoChallenged = votesVideoChallenged;
 	}
 
 	public int getId() {
@@ -92,6 +98,22 @@ public class BattleWrapper {
 		this.youtubeUrlChallenged = youtubeUrlChallenged;
 	}
 
+	public int getVotesVideoChallenger() {
+		return votesVideoChallenger;
+	}
+
+	public void setVotesVideoChallenger(int votesVideoChallenger) {
+		this.votesVideoChallenger = votesVideoChallenger;
+	}
+
+	public int getVotesVideoChallenged() {
+		return votesVideoChallenged;
+	}
+
+	public void setVotesVideoChallenged(int votesVideoChallenged) {
+		this.votesVideoChallenged = votesVideoChallenged;
+	}
+
 	public Calendar getBattleChallengeTime() {
 		return battleChallengeTime;
 	}
@@ -104,7 +126,8 @@ public class BattleWrapper {
 	public String toString() {
 		return "BattleWrapper [id=" + id + ", titulo=" + titulo + ", description=" + description + ", userChallenger="
 				+ userChallenger + ", userChallenged=" + userChallenged + ", youtubeUrlChallenger="
-				+ youtubeUrlChallenger + ", youtubeUrlChallenged=" + youtubeUrlChallenged + ", battleChallengeTime="
+				+ youtubeUrlChallenger + ", youtubeUrlChallenged=" + youtubeUrlChallenged + ", votesVideoChallenger="
+				+ votesVideoChallenger + ", votesVideoChallenged=" + votesVideoChallenged + ", battleChallengeTime="
 				+ battleChallengeTime + "]";
 	}
 

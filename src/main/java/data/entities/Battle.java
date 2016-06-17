@@ -107,6 +107,14 @@ public class Battle {
 		this.battleChallengeTime = battleChallengeTime;
 	}
 
+	public int getVotesVideoChallenger() {
+		return votesVideoChallenger;
+	}
+
+	public int getVotesVideoChallenged() {
+		return votesVideoChallenged;
+	}
+
 	@Override
     public int hashCode() {
         return id;
@@ -144,6 +152,11 @@ public class Battle {
 
 	public Map<Integer, String> getPlayersVoters() {
 		return this.playersVoters;
+	}
+	
+	public boolean playerHasWon(String userName) {
+		return (userName.equals(this.players.get(0).getUserName()) && this.votesVideoChallenger > this.votesVideoChallenged) ||
+				(userName.equals(this.players.get(1).getUserName()) && this.votesVideoChallenger < this.votesVideoChallenged);
 	}
 	
 }

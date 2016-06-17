@@ -53,7 +53,21 @@ public class PlayerController {
 	
 	public PlayerWrapper showPlayer(String username, boolean ownPlayer) {
 		User user = userDao.findByUsernameOrEmail(username);
-		return new PlayerWrapper(user.getUserName(), user.getBirthDate(), user.getStartingYear(), user.getSummary(), getVideoWrappers(videoDao.findByPlayerOrderBySendTimeDesc(user)), getBattleWrappers(battleDao.findByPlayersOrderByBattleChallengeTimeDesc(user)), ownPlayer);
+		List<Battle> battles = battleDao.findByPlayersOrderByBattleChallengeTimeDesc(user);
+		return new PlayerWrapper(user.getUserName(), user.getBirthDate(), user.getStartingYear(), user.getSummary(), 
+				getVideoWrappers(videoDao.findByPlayerOrderBySendTimeDesc(user)), 
+				getBattleWrappers(battles), ownPlayer, 
+				getWins(user.getUserName(), battles));
+	}
+
+	private int getWins(String userName, List<Battle> battles) {
+		int wins = 0, i;
+		for (i = 0; i < battles.size(); i++) {
+			if (battles.get(i).playerHasWon(userName)) {
+				wins++;
+			}
+		}
+		return wins;
 	}
 
 	private List<VideoOutputWrapper> getVideoWrappers(List<Video> videosEntity) {
@@ -67,7 +81,10 @@ public class PlayerController {
 	private List<BattleWrapper> getBattleWrappers(List<Battle> battlesEntity) {
 		List<BattleWrapper> battleWrapper = new ArrayList<BattleWrapper>();
 		for (int i = 0; i < battlesEntity.size(); i++) {
-			battleWrapper.add(new BattleWrapper(battlesEntity.get(i).getId(), battlesEntity.get(i).getTitle(), battlesEntity.get(i).getDescription(), battlesEntity.get(i).getPlayers().get(0).getUserName(), battlesEntity.get(i).getPlayers().get(1).getUserName(), battlesEntity.get(i).getYoutubeUrlChallenger(), battlesEntity.get(i).getYoutubeUrlChallenged(), battlesEntity.get(i).getBattleChallengeTime()));
+			battleWrapper.add(new BattleWrapper(battlesEntity.get(i).getId(), battlesEntity.get(i).getTitle(), battlesEntity.get(i).getDescription(), 
+					battlesEntity.get(i).getPlayers().get(0).getUserName(), battlesEntity.get(i).getPlayers().get(1).getUserName(), 
+					battlesEntity.get(i).getYoutubeUrlChallenger(), battlesEntity.get(i).getYoutubeUrlChallenged(), 
+					battlesEntity.get(i).getVotesVideoChallenger(), battlesEntity.get(i).getVotesVideoChallenged(), battlesEntity.get(i).getBattleChallengeTime()));
 		}
 		return battleWrapper;
 	}
