@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import business.api.exceptions.InvalidBattleResponseException;
+import business.api.exceptions.InvalidBattleVoteException;
 import business.api.exceptions.NotFoundUserNameException;
 import business.wrapper.BattleChallengeWrapper;
 import business.wrapper.BattleResponseWrapper;
+import business.wrapper.BattleVoteWrapper;
 import data.daos.BattleDao;
 import data.daos.UserDao;
 import data.entities.Battle;
@@ -55,6 +57,32 @@ public class BattleController {
 		} else {
 			throw new InvalidBattleResponseException();
 		}
+	}
+
+	public void battleVote(String username, BattleVoteWrapper battleVoteWrapper) throws InvalidBattleVoteException {
+		Battle battle = battleDao.findOne(battleVoteWrapper.getId());
+		if (battle != null && canVotePlayerThisVideo(username, battleVoteWrapper.getPlayerVoted(), battle)) {
+			battle.vote(username, battleVoteWrapper.getPlayerVoted());
+			battleDao.save(battle);
+		} else {
+			throw new InvalidBattleVoteException();
+		}
+	}
+	
+	private boolean canVotePlayerThisVideo(String username, String playerVoted, Battle battle) {
+		return !battle.getPlayersVoters().containsValue(username) 
+				&& !isPlayerInList(battle.getPlayers(), username)
+				&& isPlayerInList(battle.getPlayers(), playerVoted)
+				&& battle.getYoutubeUrlChallenged() != null
+				&& battle.getYoutubeUrlChallenger() != null; 
+	}
+	
+	private boolean isPlayerInList(List<User> userList, String userName) {
+		int i = 0;
+		while (i < userList.size() && !userDao.findByUsernameOrEmail(userName).equals(userList.get(i))) {
+			i++;
+		}
+		return i < userList.size();
 	}
 
 }

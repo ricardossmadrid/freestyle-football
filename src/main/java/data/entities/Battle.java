@@ -1,8 +1,11 @@
 package data.entities;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,6 +30,13 @@ public class Battle {
 	
 	private String youtubeUrlChallenged;
 	
+	private int votesVideoChallenger;
+	
+	private int votesVideoChallenged;
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Map<Integer, String> playersVoters;
+	
 	private Calendar battleChallengeTime;
 	
 	public Battle() {
@@ -40,6 +50,9 @@ public class Battle {
 		this.players = players;
 		this.youtubeUrlChallenger = youtubeUrlChallenger;
 		this.youtubeUrlChallenged = null;
+		this.votesVideoChallenger = 0;
+		this.votesVideoChallenged = 0;
+		this.playersVoters = new HashMap<Integer, String>();
 	}
 
 	public int getId() {
@@ -118,6 +131,19 @@ public class Battle {
 		return "Battle [id=" + id + ", title=" + title + ", description=" + description + ", players=" + players
 				+ ", youtubeUrlChallenger=" + youtubeUrlChallenger + ", youtubeUrlChallenged=" + youtubeUrlChallenged
 				+ ", battleChallengeTime=" + battleChallengeTime + "]";
+	}
+
+	public void vote(String userName, String playerVoted) {
+		if (playerVoted.equals(players.get(0).getUserName())) {
+			this.votesVideoChallenger++;
+		} else {
+			this.votesVideoChallenged++;
+		}
+		playersVoters.put(this.playersVoters.size(), userName);
+	}
+
+	public Map<Integer, String> getPlayersVoters() {
+		return this.playersVoters;
 	}
 	
 }

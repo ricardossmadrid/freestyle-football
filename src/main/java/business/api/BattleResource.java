@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import business.api.exceptions.InvalidBattleResponseException;
+import business.api.exceptions.InvalidBattleVoteException;
 import business.api.exceptions.InvalidFieldException;
 import business.api.exceptions.NotFoundUserNameException;
 import business.controllers.BattleController;
 import business.wrapper.BattleChallengeWrapper;
 import business.wrapper.BattleResponseWrapper;
+import business.wrapper.BattleVoteWrapper;
 import data.services.DataService;
 
 @RestController
@@ -48,6 +50,13 @@ public class BattleResource {
 		dataService.validateField(battleResponseWrapper.getId(), "id");
 		dataService.validateField(battleResponseWrapper.getYoutubeUrlChallenged(), "youtubeUrlChallenged");
 		battleController.battleResponse(activeUser.getUsername(), battleResponseWrapper);
+	}
+	
+	@RequestMapping(value = Uris.VOTE, method = RequestMethod.POST)
+	public void battleVote(@AuthenticationPrincipal User activeUser, @RequestBody BattleVoteWrapper battleVoteWrapper) throws InvalidFieldException, InvalidBattleVoteException {
+		dataService.validateField(battleVoteWrapper.getId(), "id");
+		dataService.validateField(battleVoteWrapper.getPlayerVoted(), "playerVoted");
+		battleController.battleVote(activeUser.getUsername(), battleVoteWrapper);
 	}
 
 }
