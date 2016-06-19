@@ -26,4 +26,8 @@ public class Uris {
 
 	public static final String VOTE = "/vote";
 
+	public static final String CONVERSATIONS = "/conversations";
+
+	public static final String MESSAGE = "/message";
+
 }
