@@ -10,7 +10,8 @@ import org.junit.runners.Suite.SuiteClasses;
     TokenResourceFunctionalTesting.class,
     PlayerResourceFunctionalTesting.class,
     VideoResourceFunctionalTesting.class,
-    BattleResourceFunctionalTesting.class
+    BattleResourceFunctionalTesting.class,
+    ConversationResourceFunctionalTesting.class
 })
 public class AllFunctionalTesting {
 

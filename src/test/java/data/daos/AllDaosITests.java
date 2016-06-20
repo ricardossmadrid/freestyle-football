@@ -10,7 +10,9 @@ import org.junit.runners.Suite.SuiteClasses;
     UserDaoITest.class,
     AuthorizationDaoITest.class,
     VideoDaoITest.class,
-    BattleDaoITest.class
+    BattleDaoITest.class,
+    ConversationDaoITest.class,
+    MessageDaoITest.class
 })
 public class AllDaosITests {
 

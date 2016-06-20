@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import data.entities.Authorization;
 import data.entities.Battle;
+import data.entities.Conversation;
+import data.entities.Message;
 import data.entities.Role;
 import data.entities.Token;
 import data.entities.User;
@@ -33,6 +35,12 @@ public class DaosService {
     
     @Autowired
     private BattleDao battleDao;
+    
+    @Autowired
+    private ConversationDao conversationDao;
+    
+    @Autowired
+    private MessageDao messageDao;
 
     @Autowired
     private AuthorizationDao authorizationDao;
@@ -89,6 +97,17 @@ public class DaosService {
     	players.add((User) getMap().get(userNameChallenger));
     	players.add((User) getMap().get(userNameChallenged));
     	battleDao.save(new Battle("title" + battleSuffix, "description" + battleSuffix, players, "youtubeUrlChallenger" + battleSuffix));
+    }
+    
+    public int createConversation(String conversationalist1, String conversationalist2) {
+    	List<User> players = new ArrayList<User>();
+    	players.add((User) getMap().get(conversationalist1));
+    	players.add((User) getMap().get(conversationalist2));
+    	return conversationDao.save(new Conversation(players)).getId();
+    }
+    
+    public void sendMessage(String userNameWriter, String message, int conversation) {
+    	messageDao.save(new Message(userNameWriter, message, conversationDao.findOne(conversation)));
     }
 
     public Map<String, Object> getMap() {
