@@ -25,5 +25,10 @@ public class TokenResource {
     public TokenWrapper login(@AuthenticationPrincipal User activeUser) {
         return new TokenWrapper(tokenController.login(activeUser.getUsername()));
     }
+    
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void logout(@AuthenticationPrincipal User activeUser) {
+    	tokenController.logout(activeUser.getUsername());
+    }
 
 }

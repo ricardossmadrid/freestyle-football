@@ -35,4 +35,8 @@ public class TokenController {
         tokenDao.save(token);
         return token.getValue();
     }
+
+	public void logout(String username) {
+		tokenDao.deleteByUser(userDao.findByUsernameOrEmail(username));
+	}
 }

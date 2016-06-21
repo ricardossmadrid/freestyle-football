@@ -15,6 +15,8 @@ public interface TokenDao extends JpaRepository<Token, Integer> {
 
     List<Token> findByUser(User user);
     
+    void deleteByUser(User user);
+    
     @Transactional
     @Modifying
     @Query(value = "delete from Token token where token.expirationTime < ?1")
