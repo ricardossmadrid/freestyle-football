@@ -76,4 +76,14 @@ public class TokenDaoITest {
         }
         return existToken;
     }
+    
+    @Test
+    public void testDeleteByUser() {
+    	User user = (User) daosService.getMap().get("u2");
+    	List<Token> tokens = tokenDao.findByUser(user);
+    	assertEquals(tokens.size(), 1);
+    	tokenDao.deleteByUser(user);
+    	tokens = tokenDao.findByUser(user);
+    	assertEquals(tokens.size(), 0);
+    }
 }

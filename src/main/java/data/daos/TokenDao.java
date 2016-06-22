@@ -15,6 +15,8 @@ public interface TokenDao extends JpaRepository<Token, Integer> {
 
     List<Token> findByUser(User user);
     
+    @Transactional
+	@Modifying
     void deleteByUser(User user);
     
     @Transactional
