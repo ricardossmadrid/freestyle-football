@@ -10,23 +10,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import business.api.exceptions.AlreadyExistUserFieldException;
 import business.api.exceptions.ApiException;
 import business.api.exceptions.ErrorMessage;
-import business.api.exceptions.InvalidCourtReserveException;
-import business.api.exceptions.InvalidDateException;
 import business.api.exceptions.InvalidFieldException;
-import business.api.exceptions.MalformedHeaderException;
 import business.api.exceptions.UnauthorizedException;
-import business.api.exceptions.NotFoundUserIdException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler({NotFoundUserIdException.class})
-    @ResponseBody
-    public ErrorMessage notFoundRequest(ApiException exception) {
-        ErrorMessage apiErrorMessage = new ErrorMessage(exception);
-        return apiErrorMessage;
-    }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler({UnauthorizedException.class})
@@ -36,7 +24,7 @@ public class ApiExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({MalformedHeaderException.class, InvalidFieldException.class, InvalidDateException.class})
+    @ExceptionHandler({InvalidFieldException.class})
     @ResponseBody
     public ErrorMessage badRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
@@ -44,7 +32,7 @@ public class ApiExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler({AlreadyExistUserFieldException.class, AlreadyExistUserFieldException.class, InvalidCourtReserveException.class})
+    @ExceptionHandler({AlreadyExistUserFieldException.class, AlreadyExistUserFieldException.class})
     @ResponseBody
     public ErrorMessage conflictRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
