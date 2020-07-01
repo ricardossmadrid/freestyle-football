@@ -42,7 +42,7 @@
         <!-- EMail -->
         <javax.mail.version>1.4.3</javax.mail.version>
 		<!-- Data Base -->
-		<mysql.connector.version>5.1.34</mysql.connector.version>
+		<mysql.connector.version>8.0.16</mysql.connector.version>
 		<hibernate.version>4.3.8.Final</hibernate.version>
         <spring.data.version>1.8.0.RELEASE</spring.data.version>
 	</properties>
